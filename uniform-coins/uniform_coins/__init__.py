@@ -1,5 +1,9 @@
 from gymnasium.envs.registration import register
 
+from uniform_coins.envs.uniform_coins_env import UniformCoinsEnv
+from uniform_coins.envs.uniform_coins_model import UniformCoinsModel
+from uniform_coins.envs.uniform_coins_model import UniformCoinsState
+
 register(
     # uniform_coins is this folder name
     # -v0 is because this first version

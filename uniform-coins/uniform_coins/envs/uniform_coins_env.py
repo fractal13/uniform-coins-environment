@@ -1,32 +1,36 @@
 import gymnasium
 import pygame
 import numpy as np
-import uniform_coins_model
+from gymnasium import spaces
+from uniform_coins.envs.uniform_coins_model import UniformCoinsModel
+from uniform_coins.envs.uniform_coins_model import UniformCoinsState
 
 class UniformCoinsEnv(gymnasium.Env):
 
     def __init__(self, render_mode=None, size=4):
         self.render_mode = render_mode
         self.size = size
+        self.action_space = spaces.Discrete(size)
+        self.observation_space = spaces.Box(0, 1, shape=(size,), dtype=np.int8)
         return
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-        self.state = uniform_coins_model.UniformCoinsState(self.size)
+        self.state = UniformCoinsState(self.size)
         self.state.randomize(seed)
 
-        observation = self.state
+        observation = self.state.observation
         info = {}
         return observation, info
 
     def step(self, action):
         state = self.state
-        state1 = uniform_coins_model.UniformCoinsModel.RESULT(state, action)
+        state1 = UniformCoinsModel.RESULT(state, action)
         self.state = state1
         
-        observation = self.state
-        reward = uniform_coins_model.UniformCoinsModel.STEP_COST(state, action, state1)
-        terminated = uniform_coins_model.UniformCoinsModel.GOAL_TEST(state1)
+        observation = self.state.observation
+        reward = UniformCoinsModel.STEP_COST(state, action, state1)
+        terminated = UniformCoinsModel.GOAL_TEST(state1)
         info = {}
         return observation, reward, terminated, False, info
 

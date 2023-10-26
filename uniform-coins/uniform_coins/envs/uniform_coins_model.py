@@ -25,8 +25,15 @@ class UniformCoinsState:
         self._coins[action] = not self._coins[action]
         return
 
+    @property
     def observation(self):
         return self._coins
+
+    @observation.setter
+    def observation(self, value):
+        self._coins = value
+        self._size = value.shape[0]
+        return
 
     def coin(self, index):
         return self._coins[index]
