@@ -21,6 +21,9 @@ Use the `Makefile` in that directory to install the module in your local
 pip. Note that this does not copy the module, it sets a link to this
 location. This is convenient for making updates after installing it.
 
+[demo-agents](demo-agents/) has a random agent and a iterative deepening
+search agent, to demonstrate the use of the environment and the model
+side-by-side in running the environment and searching for solutions.
 
 
 
