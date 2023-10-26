@@ -14,20 +14,30 @@ def agent_function(state):
     return action
 
 def main():
-    env = gym.make('uniform_coins/UniformCoins-v0', render_mode=None, coin_count=3)
+    coin_count = 9
+
+    # render_mode = None
+    # render_mode = "ansi"
+    # render_mode = "rgb_array"
+    render_mode = "human"
+
+    env = gym.make('uniform_coins/UniformCoins-v0', render_mode=render_mode, coin_count=coin_count)
     observation, info = env.reset()
     state = uniform_coins.UniformCoinsState()
     state.observation = observation
     
     terminated = truncated = False
-    print(f"Current state: {state}")
+    if render_mode == "ansi":
+        print("Current state:", env.render())
     while not (terminated or truncated):
-        print()
         action = agent_function(state)
-        print(f"Action: turn coin {action}.")
+        if render_mode == "ansi":
+            print()
+            print(f"Action: turn coin {action}.")
         observation, reward, terminated, truncated, info = env.step(action)
         state.observation = observation
-        print(f"Current state: {state}")
+        if render_mode == "ansi":
+            print("Current state:", env.render())
 
     env.close()
     return
