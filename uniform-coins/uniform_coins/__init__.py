@@ -1,7 +1,15 @@
 from gymnasium.envs.registration import register
 
 register(
-     id="uniform_coins/UniformCoins-v0",
-     entry_point="uniform_coins.envs:UniformCoinsEnv",
-     max_episode_steps=50,
+    # uniform_coins is this folder name
+    # -v0 is because this first version
+    # UniformCoins is the pretty name for gym.make
+    id="uniform_coins/UniformCoins-v0",
+    
+    # uniform_coins.envs is the path uniform_coins/envs
+    # UniformCoinsEnv is the class name
+    entry_point="uniform_coins.envs:UniformCoinsEnv",
+    
+    # configure the automatic wrapper to truncate after 50 steps
+    max_episode_steps=50,
 )
