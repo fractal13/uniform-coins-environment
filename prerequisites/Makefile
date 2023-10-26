@@ -1,5 +1,4 @@
-all:
-	@echo make pip-install
+all: pip-install
 
 pip-install:
 	python3 -m pip install -U pip
