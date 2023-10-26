@@ -7,16 +7,16 @@ from uniform_coins.envs.uniform_coins_model import UniformCoinsState
 
 class UniformCoinsEnv(gymnasium.Env):
 
-    def __init__(self, render_mode=None, size=4):
+    def __init__(self, render_mode=None, coin_count=4):
         self.render_mode = render_mode
-        self.size = size
-        self.action_space = spaces.Discrete(size)
-        self.observation_space = spaces.Box(0, 1, shape=(size,), dtype=np.int8)
+        self.coin_count = coin_count
+        self.action_space = spaces.Discrete(coin_count)
+        self.observation_space = spaces.Box(0, 1, shape=(coin_count,), dtype=np.int8)
         return
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-        self.state = UniformCoinsState(self.size)
+        self.state = UniformCoinsState(self.coin_count)
         self.state.randomize(seed)
 
         observation = self.state.observation
